@@ -6,13 +6,12 @@ public  class Field  {
     private double levelOfDrampness;
     private double minimumThreshold = 40.0;
     private double maximumThreshold = 80.0;
-    private boolean openValve;
+    private boolean openValve = false;
 
-    public  Field(int lennght, int width) {
+    public  Field(int lennght, int width, double levelOfDrampness) {
         this.lennght = lennght;
         this.width = width;
-        this.levelOfDrampness = 0.0;
-        openValve = false;
+        this.levelOfDrampness = levelOfDrampness;
     }
 
     public int getLennght() {
@@ -39,6 +38,14 @@ public  class Field  {
         this.levelOfDrampness = levelOfDrampness;
     }
 
+    public boolean isOpenValve() {
+        return openValve;
+    }
+
+    public void setOpenValve(boolean openValve) {
+        this.openValve = openValve;
+    }
+
     @Override
     public String toString() {
         return "Field Dimension:\n" +
@@ -47,33 +54,32 @@ public  class Field  {
                 ;
     }
 public void irrigate(){
-if (levelOfDrampness < minimumThreshold){
+if (levelOfDrampness >= maximumThreshold){
+    System.out.println("Irrigate Stop");
+}else {
     System.out.println("Irrigate Activate");
     openValve = true;
     double waterQuantity = calculateWaterQuantity();
     applyWater(waterQuantity);
     levelOfDrampness += calculateIncrementOfDrampness(waterQuantity);
-}else if (levelOfDrampness == maximumThreshold){
-    System.out.println("Irrigate Stop");
     openValve = false;
-}else {
-    System.out.println("Level of Drampness is optimal");
 }
 }
 private double calculateWaterQuantity(){
-        double waterQuantity = 100;
-    return waterQuantity;
+        double waterQuantity = 4;
+    double fieldArea = lennght * width;
+    double quantityOfWaterForMeterSquare = waterQuantity * fieldArea;
+    return quantityOfWaterForMeterSquare;
 
 }
 private void applyWater(double waterQuantity){
-        double fieldArea = lennght * width;
-        double cauntityOfWaterForMetrerSquare = waterQuantity / fieldArea;
-    System.out.println("Applyly water of field ...");
-    System.out.println("Water Aplicated : " + cauntityOfWaterForMetrerSquare + " Lts" );
+        System.out.println("Applyly water of field ...");
+    System.out.println("Water Aplicated : " + waterQuantity + " Lts " );
 
 }
 private double calculateIncrementOfDrampness(double waterQuantity){
-        double increments = 1.0;
+        double increments = 0.1;
+        //este metodo deveria incrementar la cantidad de humedad despues de regar
         return increments;
 }
 
