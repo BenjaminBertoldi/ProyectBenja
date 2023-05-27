@@ -1,9 +1,13 @@
 package club;
 
 public  class Field  {
-    private int lennght;
-    private int width;
+    private double lennght = 105;
+    private double width = 70;
+
+    double fieldArea = lennght * width;
     private double levelOfDrampness;
+    double soilMoistureCapacity = 0.2;
+    double waterQuantity = 3.0;
     private double minimumThreshold = 40.0;
     private double maximumThreshold = 80.0;
     private boolean openValve = false;
@@ -14,7 +18,7 @@ public  class Field  {
         this.levelOfDrampness = levelOfDrampness;
     }
 
-    public int getLennght() {
+    public double getLennght() {
         return lennght;
     }
 
@@ -22,7 +26,7 @@ public  class Field  {
         this.lennght = lennght;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
@@ -53,38 +57,36 @@ public  class Field  {
                 "Width: " + width + " Meters"
                 ;
     }
+
+
+
 public void irrigate(){
 if (levelOfDrampness >= maximumThreshold){
     System.out.println("Irrigate Stop");
 }else {
     System.out.println("Irrigate Activate");
     openValve = true;
-    double waterQuantity = calculateWaterQuantity();
     applyWater(waterQuantity);
     levelOfDrampness += calculateIncrementOfDrampness(waterQuantity);
     openValve = false;
 }
-}
-private double calculateWaterQuantity(){
-        double waterQuantity = 4;
-    double fieldArea = lennght * width;
-    double quantityOfWaterForMeterSquare = waterQuantity * fieldArea;
-    return quantityOfWaterForMeterSquare;
+    }
+    private void applyWater(double waterQuantity){
+        double currentSoilMoisture = 0.1;
+        double waterToIncorporate = (soilMoistureCapacity - currentSoilMoisture) * fieldArea;
 
-}
-private void applyWater(double waterQuantity){
         System.out.println("Applyly water of field ...");
-    System.out.println("Water Aplicated : " + waterQuantity + " Lts " );
+        System.out.println("Water Aplicated : " + waterToIncorporate + " Lts " );
 
-}
-private double calculateIncrementOfDrampness(double waterQuantity){
-        double increments = 0.1;
-        //este metodo deveria incrementar la cantidad de humedad despues de regar
+    }
+
+
+    private double calculateIncrementOfDrampness(double waterQuantity){
+
+        double totalWater = waterQuantity * fieldArea;
+        double soilCapacity = fieldArea * soilMoistureCapacity;
+        double increments = totalWater / soilCapacity;
         return increments;
-}
-
-
-
-
+    }
 }
 
