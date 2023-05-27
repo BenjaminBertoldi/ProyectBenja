@@ -124,7 +124,7 @@ public class Club {
         for (Player player :
                 signing) {
             if ( player.getLastName().toLowerCase().equals(playersc.toLowerCase()) ) {
-                System.out.println("Want you buy? " + " " + playersc);
+                System.out.println("Want you buy?? " + " " + playersc);
                 String res = sc.nextLine();
                 if (res.equals("yes")){
                     System.out.println("congrats you adquire " + player.getFirstName() + " " + player.getLastName());
