@@ -20,6 +20,10 @@ public class Uimenu {
     static ArrayList<Partner> partners = new ArrayList<>();
     static Stadium  s = new Stadium(1000,14000);
     static Die d = new Die();
+    private static Club club1;
+
+    static Field f1 = new Field(105,70,20.0);
+    static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
 
 
 
@@ -77,8 +81,28 @@ public class Uimenu {
 
             switch (responce) {
                 case 1:
-                    System.out.println(new Field(105, 70).toString());
-                    back();
+                    int responces = 0;
+
+                    do {
+                        System.out.println("1.See Field Dimention");
+                        System.out.println("2.See irrigate");
+
+                        responces = Integer.valueOf(sc.nextLine());
+
+                        switch (responces){
+                            case 1:
+                                System.out.println(f1);
+                                back();
+                                break;
+                            case 2:
+                                f1.irrigate();
+                                back();
+                                break;
+                            case 0:
+                                back();
+                                break;
+                        }
+                    }while (responces != 0);
                     break;
                 case 2:
                     Uimenu.showStadiumMenu();
@@ -119,11 +143,29 @@ public class Uimenu {
                     back();
                     break;
                 case 5:
-                    President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
-                    System.out.println(prdt1);
-                    back();
+                    int responsese = 0;
+                    do {
+                        System.out.println("1. See President");
+                        System.out.println("2. Politics of Entry/Outlay");
+                        System.out.println("0. Back");
+                        responsese = Integer.valueOf(sc.nextLine());
+
+                        switch (responsese) {
+                            case 1:
+                                System.out.println(prdt1);
+                                back();
+                                break;
+                            case 2:
+                                prdt1.politicsEntryOutlay();
+                                back();
+                                break;
+                            case 0:
+                                break;
+                        }
+
+                    } while (responsese != 0);
                     break;
-                case 6:
+                    case 6:
                     clubMenu();
                     break;
                 case 0:
