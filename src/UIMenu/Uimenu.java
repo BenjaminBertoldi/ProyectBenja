@@ -11,6 +11,9 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Uimenu {
+    static Sponsor sp1 = new Sponsor("Coca Cola");
+    static Sponsor sp2 = new Sponsor("Garbarino");
+    static Sponsor sp3 = new Sponsor("Samsung");
     public static Calendar calendar = new GregorianCalendar();
     public static Partner partner;
 
@@ -133,9 +136,6 @@ public class Uimenu {
 
                     break;
                 case 4:
-                    Sponsor sp1 = new Sponsor("Coca Cola");
-                    Sponsor sp2 = new Sponsor("Garbarino");
-                    Sponsor sp3 = new Sponsor("Samsung");
                     System.out.println("Sponsor List");
                     System.out.println(sp1);
                     System.out.println(sp2);
@@ -477,6 +477,7 @@ public class Uimenu {
         do {
             System.out.println("1. Coach");
             System.out.println("2. Team Medical");
+            System.out.println("3. See Training of Players");
             System.out.println("0. Back");
 
             Scanner sc = new Scanner(System.in);
@@ -493,7 +494,12 @@ public class Uimenu {
                     System.out.println();
                     back();
                     break;
-
+                case 3:
+                    trainingMenu();
+                    back();
+                    break;
+                case 0:
+                    break;
             }
 
         } while (responce != 0);
@@ -582,6 +588,8 @@ public class Uimenu {
 
     public static void showGameMenu() {
 
+        Sponsor adBreack = Sponsor.getAdBreack(sp1,sp2,sp3);
+        System.out.println( adBreack.getHallmarkAgherent());
         int teams1 = team1.throwdice(d);
         int teams2 = createTeam().throwdice(d);
 
@@ -638,5 +646,23 @@ public class Uimenu {
                     System.out.println("Try Again");
             }
         } while (responce1 != 0);
+    }
+    public static void trainingMenu(){
+        Scanner cs = new Scanner(System.in);
+        int responze = 0;
+        do {
+            System.out.println("1.See Training of Players");
+            System.out.println("0. Back");
+            responze = Integer.valueOf(cs.nextLine());
+            switch (responze){
+                case 1:
+                    Team.training();
+                    back();
+                    break;
+                case 0:
+                    break;
+            }
+
+        }while (responze != 0);
     }
 }

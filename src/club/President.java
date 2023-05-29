@@ -48,4 +48,5 @@ public class President extends People {
         System.out.println("Utility: $ " + utility);
         System.out.println("Margin of Utility: " + marginOfUtility + "%");
     }
+    
 }
