@@ -11,6 +11,7 @@ public class Player extends People {
     private int salary;
     private PlayerStatistics statistics;
     private TrainingStatistics trainingStatistics;
+    private int hoursOfTraining;
 
     public Player(String firstName, String lastName, int age, int number, String position, int height, int weight, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics) {
         super(firstName, lastName, age);
@@ -20,6 +21,7 @@ public class Player extends People {
         this.weight = weight;
         this.statistics = playerStatistics;
         this.trainingStatistics = trainingStatistics;
+        this.hoursOfTraining = 0;
 
     }
 
@@ -78,6 +80,17 @@ public class Player extends People {
     }
 
     public void setTrainingStatistics(TrainingStatistics trainingStatistics){ this.trainingStatistics = trainingStatistics; }
+
+    public int getHoursOfTraining() {
+        return hoursOfTraining;
+    }
+
+    public void setHoursOfTraining(int hoursOfTraining) {
+        this.hoursOfTraining = hoursOfTraining;
+    }
+    public void addHoursOfTraining(int hours){
+        hoursOfTraining += hours;
+    }
 
     @Override
     public String toString() {
