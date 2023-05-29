@@ -8,14 +8,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Sponsor {
-
     private String hallmarkAgherent;
+    private String slogan;
 
 
 
 
 
-    public Sponsor(String hallmarkAgherent) {
+    public Sponsor(String hallmarkAgherent,String slogan) {
+        this.slogan = slogan;
         this.hallmarkAgherent = hallmarkAgherent;
     }
 
@@ -30,6 +31,14 @@ public class Sponsor {
         this.hallmarkAgherent = hallmarkAgherent;
     }
 
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
+    }
+
     @Override
     public String toString() {
         return "Sponsor{" +
@@ -42,16 +51,10 @@ public class Sponsor {
 
         switch (randomNumbers) {
             case 0:
-                System.out.println("Unique, as First Love \n ");
-                System.out.println(" 100 years of the Unique Bottle ");
                 return sp1;
             case 1:
-                System.out.println("The Super Discounts arrived \n ");
-                System.out.println("¡¡70% off!!");
                 return sp2;
             case 2:
-                System.out.println("New Galaxi Z Flip \n");
-                System.out.println("keep all your memories and files with more than 2 TB of memory");
                 return sp3;
             default:
                 return null;
