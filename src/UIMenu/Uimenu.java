@@ -5,19 +5,17 @@ import club.*;
 import team.*;
 import team.players.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.*;
 
 public class Uimenu {
-    static Sponsor sp1 = new Sponsor("Coca Cola");
-    static Sponsor sp2 = new Sponsor("Garbarino");
-    static Sponsor sp3 = new Sponsor("Samsung");
+    static Sponsor sp1 = new Sponsor("\nCoca Cola","Unique, as First Love \n 100 years of the Unique Bottle ");
+    static Sponsor sp2 = new Sponsor("\nGarbarino","The Super Discounts arrived \n ¡¡70% off!!");
+    static Sponsor sp3 = new Sponsor("\nSamsung","New Galaxi Z Flip \n keep all your memories and files with more than 2 TB of memory");
     public static Calendar calendar = new GregorianCalendar();
     public static Partner partner;
 
     static Team team1 = new Team("Chavos Football");
+    public static Team team = new Team();
 
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team1 );
     static ArrayList<Partner> partners = new ArrayList<>();
@@ -246,6 +244,7 @@ public class Uimenu {
 
 
     public static void showTeamMenu() {
+        createTeam();
 
         System.out.println("Team Menu");
         int responce = 0;
@@ -276,6 +275,7 @@ public class Uimenu {
     }
 
     public static void showPlayerMenu() {
+        createTeam();
 
         System.out.println("Player List");
         int responce = 0;
@@ -291,9 +291,8 @@ public class Uimenu {
 
             switch (responce) {
                 case 1:
-                    createTeam();
                     for (Player p :
-                            createTeam().getPlayers()) {
+                            team.getPlayers()) {
                         if (p instanceof Goalkeeper) {
                             System.out.println(p);
                         }
@@ -308,9 +307,8 @@ public class Uimenu {
                         responce1 = Integer.valueOf(sc.nextLine());
                         switch (responce1) {
                             case 1:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Goalkeeper) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
                                     }
@@ -318,9 +316,8 @@ public class Uimenu {
                                 back();
                                 break;
                             case 2:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Goalkeeper) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
                                     }
@@ -335,9 +332,8 @@ public class Uimenu {
                     } while (responce1 != 0);
                     break;
                 case 2:
-                    createTeam();
                     for (Player p :
-                            createTeam().getPlayers()) {
+                            team.getPlayers()) {
                         if (p instanceof Defence) {
                             System.out.println(p);
                         }
@@ -351,9 +347,8 @@ public class Uimenu {
                         responce2 = Integer.valueOf(sc.nextLine());
                         switch (responce2) {
                             case 1:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Defence) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
                                     }
@@ -361,9 +356,8 @@ public class Uimenu {
                                 back();
                                 break;
                             case 2:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Defence) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
                                     }
@@ -378,9 +372,8 @@ public class Uimenu {
                     } while (responce2 != 0);
                     break;
                 case 3:
-                    createTeam();
                     for (Player p :
-                            createTeam().getPlayers()) {
+                            team.getPlayers()) {
                         if (p instanceof Midfielder) {
                             System.out.println(p);
                         }
@@ -394,9 +387,8 @@ public class Uimenu {
                         responce3 = Integer.valueOf(sc.nextLine());
                         switch (responce3) {
                             case 1:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Midfielder) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
                                     }
@@ -404,9 +396,8 @@ public class Uimenu {
                                 back();
                                 break;
                             case 2:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Midfielder) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
                                     }
@@ -421,9 +412,8 @@ public class Uimenu {
                     } while (responce3 != 0);
                     break;
                 case 4:
-                    createTeam();
                     for (Player p :
-                            createTeam().getPlayers()) {
+                            team.getPlayers()) {
                         if (p instanceof Striker) {
                             System.out.println(p);
                         }
@@ -436,9 +426,8 @@ public class Uimenu {
                         responce4 = Integer.valueOf(sc.nextLine());
                         switch (responce4) {
                             case 1:
-                                createTeam();
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Striker) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
                                     }
@@ -447,7 +436,7 @@ public class Uimenu {
                                 break;
                             case 2:
                                 for (Player p :
-                                        createTeam().getPlayers()) {
+                                        team.getPlayers()) {
                                     if (p instanceof Striker) {
                                         System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
                                     }
@@ -485,12 +474,12 @@ public class Uimenu {
 
             switch (responce) {
                 case 1:
-                    System.out.println(createTeam().getCoach());
+                    System.out.println(team.getCoach());
                     System.out.println();
                     back();
                     break;
                 case 2:
-                    System.out.println(createTeam().getMedicals());
+                    System.out.println(team.getMedicals());
                     System.out.println();
                     back();
                     break;
@@ -543,7 +532,13 @@ public class Uimenu {
         players.addAll(defences);
         players.addAll(midfielders);
         players.addAll(strikers);
+
         Team pt = new Team("Tovichas Club", new TeamStatistics(1200, 1342, 1042, 300, 0), medicalTeam, coach, players);
+        team.setTeamName("Tovichas Club");
+        team.setTeamStatistics(new TeamStatistics(1200, 1342, 1042, 300, 0));
+        team.setMedicals(medicalTeam);
+        team.setPlayers(players);
+        team.setCoach(coach);
         return pt;
 
 
@@ -589,7 +584,7 @@ public class Uimenu {
     public static void showGameMenu() {
 
         Sponsor adBreack = Sponsor.getAdBreack(sp1,sp2,sp3);
-        System.out.println( adBreack.getHallmarkAgherent());
+        System.out.println( adBreack.getSlogan() + adBreack.getHallmarkAgherent());
         int teams1 = team1.throwdice(d);
         int teams2 = createTeam().throwdice(d);
 
@@ -656,7 +651,7 @@ public class Uimenu {
             responze = Integer.valueOf(cs.nextLine());
             switch (responze){
                 case 1:
-                    Team.training();
+                    team.training();
                     back();
                     break;
                 case 0:
