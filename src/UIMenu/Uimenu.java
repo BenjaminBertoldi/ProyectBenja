@@ -17,12 +17,12 @@ public class Uimenu {
     static Team team1 = new Team("Chavos Football");
     public static Team team = new Team();
 
-    static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team1 );
+    static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
     static ArrayList<Partner> partners = new ArrayList<>();
+
     static Stadium  s = new Stadium(1000,14000);
     static Die d = new Die();
     private static Club club1;
-
     static Field f1 = new Field(105,70,20.0);
     static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
 
@@ -646,7 +646,8 @@ public class Uimenu {
         Scanner cs = new Scanner(System.in);
         int responze = 0;
         do {
-            System.out.println("1.See Training of Players");
+            System.out.println("1. See Training of Players");
+            System.out.println("2. See the 11 Opening");
             System.out.println("0. Back");
             responze = Integer.valueOf(cs.nextLine());
             switch (responze){
@@ -654,6 +655,9 @@ public class Uimenu {
                     team.training();
                     back();
                     break;
+                case 2:
+                    team.playerSelection();
+                    back();
                 case 0:
                     break;
             }
