@@ -6,6 +6,7 @@ import club.*;
 import team.*;
 import team.players.*;
 
+import java.time.ZonedDateTime;
 import java.util.*;
 
 public class Uimenu {
@@ -17,9 +18,10 @@ public class Uimenu {
     public static Team team = new Team();
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
     static ArrayList<Partner> partners = new ArrayList<>();
-    static Stadium  s = new Stadium(1000,14000);
-    static Die d = new Die();
     static Field f1 = new Field(105,70,20.0);
+    static Stadium  s = new Stadium(1000,14000,f1);
+    static Die d = new Die();
+
     static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
 
 
@@ -569,6 +571,13 @@ public class Uimenu {
                     System.out.println("seat general: " + s.getAvailableSeatGeneral() +" seat premium: " + s.getAvailableSeatPremium());
                     break;
                 case 4:
+                    List<People> teamOfMaintenece = new ArrayList<>();
+                    teamOfMaintenece.add(new People("Carlitos ","Gonsalez",42));
+                    teamOfMaintenece.add(new People("Estevan ","Perez",34));
+                    teamOfMaintenece.add(new People("Marcelo ","Agachate",63));
+                    s.setTeamOfMaintenance(teamOfMaintenece);
+                    Date date = Date.from(ZonedDateTime.now().minusMonths(1).toInstant());
+                    s.setDateFoLastMaintenace(date);
                     s.controlOfMaintenace();
                     back();
                     break;

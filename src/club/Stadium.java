@@ -14,20 +14,36 @@ public class Stadium {
     private int seatGeneral;
    private Field field ;
    private Date dateFoLastMaintenace;
-   private String teamOfMaintenance;
+   private List<People> teamOfMaintenance;
 
 
     public int getSeatPremium() {
         return seatPremium;
     }
 
-    public Stadium(int seatPremium, int seatGeneral) {
+    public Stadium(int seatPremium, int seatGeneral,Field field) {
         this.seatPremium = seatPremium;
         this.seatGeneral = seatGeneral;
         this.availableSeatGeneral = seatGeneral;
         this.availableSeatPremium = seatPremium;
+        this.field = field;
     }
 
+    public List<People> getTeamOfMaintenance() {
+        return teamOfMaintenance;
+    }
+
+    public void setTeamOfMaintenance(List<People> teamOfMaintenance) {
+        this.teamOfMaintenance = teamOfMaintenance;
+    }
+
+    public Date getDateFoLastMaintenace() {
+        return dateFoLastMaintenace;
+    }
+
+    public void setDateFoLastMaintenace(Date dateFoLastMaintenace) {
+        this.dateFoLastMaintenace = dateFoLastMaintenace;
+    }
 
     public void setSeatPremium(int seatPremium) {
         this.seatPremium = seatPremium;
@@ -79,15 +95,12 @@ public class Stadium {
                 " Available Seat General: " + availableSeatGeneral;
     }
     public void controlOfMaintenace(){
-        teamOfMaintenance = "Maintenace";
-        dateFoLastMaintenace = new Date();
-
         if(needMaintenance()){
-            System.out.println("The Team " + teamOfMaintenance + " Need Maintenace.");
+            System.out.println("The Team: " + teamOfMaintenance + " is working.");
             registreMaintenace();
             System.out.println("Maintenace registred to team: " + teamOfMaintenance + ".");
         }else {
-            System.out.println("The Team " + teamOfMaintenance + " Dont need maintenace. ");
+            System.out.println(" Dont need maintenace. ");
         }
     }
     public boolean needMaintenance(){
@@ -96,16 +109,17 @@ public class Stadium {
         long diferenceOfTime = currentDate.getTime() - dateFoLastMaintenace.getTime();
 
         long daysPassed = diferenceOfTime / (24 * 60 * 60 * 1000 );
-        return daysPassed < 30;
+        return daysPassed >= 30;
     }
     public void registreMaintenace(){
         dateFoLastMaintenace = new Date();
 
-        System.out.println("Make maintenace of team: " + teamOfMaintenance + ".");
+
         System.out.println("Check Plases of Stadium");
         System.out.println("Clean Plases of Stadium");
         System.out.println("Cut grass of Field " + field);
         System.out.println("Remplase All the light bulb burned");
+        System.out.println("Maintenace Made for: " + teamOfMaintenance + ".");
     }
 
 }
