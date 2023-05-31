@@ -41,9 +41,7 @@ public class Sponsor {
 
     @Override
     public String toString() {
-        return "Sponsor{" +
-                "hallmarkAgherent='" + hallmarkAgherent + '\'' +
-                '}';
+        return "Sponsor: "+ hallmarkAgherent;
     }
     public static Sponsor getAdBreack(Sponsor sp1,Sponsor sp2,Sponsor sp3){
         Random random = new Random();
