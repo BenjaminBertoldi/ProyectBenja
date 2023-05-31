@@ -1,7 +1,11 @@
 package club;
 
+import UIMenu.Uimenu;
+import people.People;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Stadium {
     private int availableSeatPremium;
@@ -9,6 +13,9 @@ public class Stadium {
     private int seatPremium;
     private int seatGeneral;
    private Field field ;
+   private Date dateFoLastMaintenace;
+   private String teamOfMaintenance;
+
 
     public int getSeatPremium() {
         return seatPremium;
@@ -71,7 +78,34 @@ public class Stadium {
                 " Available Seat Premium: " + availableSeatPremium +
                 " Available Seat General: " + availableSeatGeneral;
     }
+    public void controlOfMaintenace(){
+        teamOfMaintenance = "Maintenace";
+        dateFoLastMaintenace = new Date();
 
+        if(needMaintenance()){
+            System.out.println("The Team " + teamOfMaintenance + " Need Maintenace.");
+            registreMaintenace();
+            System.out.println("Maintenace registred to team: " + teamOfMaintenance + ".");
+        }else {
+            System.out.println("The Team " + teamOfMaintenance + " Dont need maintenace. ");
+        }
+    }
+    public boolean needMaintenance(){
+        Date currentDate = new Date();
 
+        long diferenceOfTime = currentDate.getTime() - dateFoLastMaintenace.getTime();
+
+        long daysPassed = diferenceOfTime / (24 * 60 * 60 * 1000 );
+        return daysPassed < 30;
+    }
+    public void registreMaintenace(){
+        dateFoLastMaintenace = new Date();
+
+        System.out.println("Make maintenace of team: " + teamOfMaintenance + ".");
+        System.out.println("Check Plases of Stadium");
+        System.out.println("Clean Plases of Stadium");
+        System.out.println("Cut grass of Field " + field);
+        System.out.println("Remplase All the light bulb burned");
+    }
 
 }

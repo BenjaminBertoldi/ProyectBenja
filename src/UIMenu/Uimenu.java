@@ -1,5 +1,6 @@
 package UIMenu;
 import game.Die;
+import people.People;
 import people.User;
 import club.*;
 import team.*;
@@ -11,18 +12,13 @@ public class Uimenu {
     static Sponsor sp1 = new Sponsor("\nCoca Cola","Unique, as First Love \n 100 years of the Unique Bottle ");
     static Sponsor sp2 = new Sponsor("\nGarbarino","The Super Discounts arrived \n ¡¡70% off!!");
     static Sponsor sp3 = new Sponsor("\nSamsung","New Galaxi Z Flip \n keep all your memories and files with more than 2 TB of memory");
-    public static Calendar calendar = new GregorianCalendar();
     public static Partner partner;
-
     static Team team1 = new Team("Chavos Football");
     public static Team team = new Team();
-
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
     static ArrayList<Partner> partners = new ArrayList<>();
-
     static Stadium  s = new Stadium(1000,14000);
     static Die d = new Die();
-    private static Club club1;
     static Field f1 = new Field(105,70,20.0);
     static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
 
@@ -548,11 +544,12 @@ public class Uimenu {
         int seatAvailable = s.getSeatGeneral() + s.getSeatPremium();
 
         int responce2 = 0;
-        System.out.println("Buy Entrance");
-         do {
-            System.out.println("1. Seat General");
-            System.out.println("2. Seat Premium");
-            System.out.println("3. Seat Available");
+
+        do {
+            System.out.println("1. Buy Seat General");
+            System.out.println("2. Buy Seat Premium");
+            System.out.println("3. See Seat Available");
+            System.out.println("4. See Maintenace");
             System.out.println("0. Back");
 
             Scanner sc = new Scanner(System.in);
@@ -570,6 +567,10 @@ public class Uimenu {
                     break;
                 case 3:
                     System.out.println("seat general: " + s.getAvailableSeatGeneral() +" seat premium: " + s.getAvailableSeatPremium());
+                    break;
+                case 4:
+                    s.controlOfMaintenace();
+                    back();
                     break;
                 case 0:
                     break;
