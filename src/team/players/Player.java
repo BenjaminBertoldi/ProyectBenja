@@ -12,8 +12,9 @@ public class Player extends People {
     private PlayerStatistics statistics;
     private TrainingStatistics trainingStatistics;
     private int hoursOfTraining;
+    private String emotions;
 
-    public Player(String firstName, String lastName, int age, int number, String position, int height, int weight, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics) {
+    public Player(String firstName, String lastName, int age, int number, String position, int height, int weight, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics,String emotions) {
         super(firstName, lastName, age);
         this.number = number;
         this.position = position;
@@ -22,11 +23,20 @@ public class Player extends People {
         this.statistics = playerStatistics;
         this.trainingStatistics = trainingStatistics;
         this.hoursOfTraining = 0;
+        this.emotions = emotions;
 
     }
 
     public Player() {
         super();
+    }
+
+    public String getEmotions() {
+        return emotions;
+    }
+
+    public void setEmotions(String emotions) {
+        this.emotions = emotions;
     }
 
     public int getNumber() {
@@ -100,6 +110,18 @@ public class Player extends People {
                 " - Position: " + position +
                 " - Height: " + height + " Cm " +
                 " - Weight: " + weight + " Kg - ";
+    }
+    public void Pass(){
+       statistics.setCorrectPass(statistics.getCorrectPass() +1);
+    }
+    public void foul(){
+        statistics.setFoul(statistics.getFoul() +1);
+    }
+    public void assistence(){
+        statistics.setAssistences(statistics.getAssistences() +1);
+    }
+    public void setgoal(){
+        statistics.setGoals(statistics.getGoals() +1);
     }
 
 

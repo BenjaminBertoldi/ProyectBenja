@@ -6,8 +6,8 @@ public class Goalkeeper extends Player {
     private int interruptions;
 
 
-    public Goalkeeper(String firstName, String lastName, int age, int number, String position, int height, int weight, int interruptions, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics ) {
-        super(firstName, lastName, age, number, position, height, weight, playerStatistics, trainingStatistics);
+    public Goalkeeper(String firstName, String lastName, int age, int number, String position, int height, int weight, int interruptions, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics,String emotions ) {
+        super(firstName, lastName, age, number, position, height, weight, playerStatistics, trainingStatistics,emotions);
         this.interruptions = interruptions;
 
     }

@@ -14,6 +14,7 @@ public class Uimenu {
     static Sponsor sp2 = new Sponsor("\nGarbarino","The Super Discounts arrived \n ¡¡70% off!!");
     static Sponsor sp3 = new Sponsor("\nSamsung","New Galaxi Z Flip \n keep all your memories and files with more than 2 TB of memory");
     public static Partner partner;
+    static Medical medical ;
     static Team team1 = new Team("Chavos Football");
     public static Team team = new Team();
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
@@ -21,7 +22,8 @@ public class Uimenu {
     static Field f1 = new Field(105,70,20.0);
     static Stadium  s = new Stadium(1000,14000,f1);
     static Die d = new Die();
-
+    static Coach coach = new Coach("Cesar Luis", "Menotti", 76, 34);
+    static MedicalTeam medicalTeam = new MedicalTeam();
     static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
 
 
@@ -472,13 +474,11 @@ public class Uimenu {
 
             switch (responce) {
                 case 1:
-                    System.out.println(team.getCoach());
-                    System.out.println();
+                    coachMenu();
                     back();
                     break;
                 case 2:
-                    System.out.println(team.getMedicals());
-                    System.out.println();
+                    medicalMenu();
                     back();
                     break;
                 case 3:
@@ -494,33 +494,32 @@ public class Uimenu {
 
     public static Team createTeam() {
         ArrayList<Player> goalkeepers = new ArrayList<>();
-        goalkeepers.add(new Goalkeeper("Hector ", " baley ", 27, 03, " Main Goalkeeper ", 170, 70, 34, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64)));
-        goalkeepers.add(new Goalkeeper("Usbaldo ", " Fillol ", 27, 05, " Second Goalkeeper ", 170, 70, 64, new PlayerStatistics(0, 0, 34, 6, 48, 2, 1), new TrainingStatistics(156, 345, 19, 71)));
-        goalkeepers.add(new Goalkeeper("Ricardo ", " La Volpe ", 26, 13, " Second Goalkeeper ", 170, 70, 14, new PlayerStatistics(0, 0, 25, 6, 40, 5, 0), new TrainingStatistics(123, 342, 15, 65)));
+        goalkeepers.add(new Goalkeeper("Hector ", " baley ", 27, 03, " Main Goalkeeper ", 170, 70, 34, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64),"\uD83D\uDE04"));
+        goalkeepers.add(new Goalkeeper("Usbaldo ", " Fillol ", 27, 05, " Second Goalkeeper ", 170, 70, 64, new PlayerStatistics(0, 0, 34, 6, 48, 2, 1), new TrainingStatistics(156, 345, 19, 71),"\uD83D\uDE03"));
+        goalkeepers.add(new Goalkeeper("Ricardo ", " La Volpe ", 26, 13, " Second Goalkeeper ", 170, 70, 14, new PlayerStatistics(0, 0, 25, 6, 40, 5, 0), new TrainingStatistics(123, 342, 15, 65),"\uD83D\uDE10"));
         ArrayList<Player> defences = new ArrayList<>();
-        defences.add(new Defence("Luis ", " Galvan ", 30, 07, " Left Defence", 170, 70, 32, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64)));
-        defences.add(new Defence("Daniel ", " Killer ", 28, 11, " Right Defence", 170, 70, 25, new PlayerStatistics(0, 2, 15, 20, 14, 3, 0), new TrainingStatistics(156, 300, 18, 60)));
-        defences.add(new Defence("Miguel ", " Oviedo ", 27, 17, " Left Defence", 170, 70, 43, new PlayerStatistics(1, 5, 34, 13, 5, 6, 2), new TrainingStatistics(165, 321, 16, 52)));
-        defences.add(new Defence("Jorge Mario ", " Olguín ", 26, 17, " Central Defence", 170, 70, 32, new PlayerStatistics(0, 2, 64, 12, 7, 4, 0), new TrainingStatistics(134, 400, 10, 60)));
-        defences.add(new Defence("Rubén ", " Pagnanini ", 29, 18, " Right Defence", 170, 70, 50, new PlayerStatistics(1, 3, 80, 32, 30, 5, 0), new TrainingStatistics(200, 321, 15, 65)));
-        defences.add(new Defence("Daniel ", " Passarella ", 25, 19, " Central Defence", 170, 70, 32, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 300, 17, 60)));
-        defences.add(new Defence("Alberto ", " Tarantini ", 22, 20, " Central Defence", 170, 70, 40, new PlayerStatistics(1, 2, 13, 7, 5, 4, 1), new TrainingStatistics(187, 298, 15, 70)));
+        defences.add(new Defence("Luis ", " Galvan ", 30, 07, " Left Defence", 170, 70, 32, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64),"\uD83D\uDE15"));
+        defences.add(new Defence("Daniel ", " Killer ", 28, 11, " Right Defence", 170, 70, 25, new PlayerStatistics(0, 2, 15, 20, 14, 3, 0), new TrainingStatistics(156, 300, 18, 60),"\uD83D\uDE04"));
+        defences.add(new Defence("Miguel ", " Oviedo ", 27, 17, " Left Defence", 170, 70, 43, new PlayerStatistics(1, 5, 34, 13, 5, 6, 2), new TrainingStatistics(165, 321, 16, 52),"\uD83D\uDE10"));
+        defences.add(new Defence("Jorge Mario ", " Olguín ", 26, 17, " Central Defence", 170, 70, 32, new PlayerStatistics(0, 2, 64, 12, 7, 4, 0), new TrainingStatistics(134, 400, 10, 60),"\uD83D\uDE03"));
+        defences.add(new Defence("Rubén ", " Pagnanini ", 29, 18, " Right Defence", 170, 70, 50, new PlayerStatistics(1, 3, 80, 32, 30, 5, 0), new TrainingStatistics(200, 321, 15, 65),"\uD83D\uDE04"));
+        defences.add(new Defence("Daniel ", " Passarella ", 25, 19, " Central Defence", 170, 70, 32, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 300, 17, 60),"\uD83D\uDE15"));
+        defences.add(new Defence("Alberto ", " Tarantini ", 22, 20, " Central Defence", 170, 70, 40, new PlayerStatistics(1, 2, 13, 7, 5, 4, 1), new TrainingStatistics(187, 298, 15, 70),"\uD83D\uDE10"));
         ArrayList<Player> midfielders = new ArrayList<>();
-        midfielders.add(new Midfielder("Norberto ", " Alonso ", 25, 01, " Central Midfielder", 170, 70, 45, new PlayerStatistics(1, 4, 20, 0, 7, 5, 3), new TrainingStatistics(203, 401, 16, 42)));
-        midfielders.add(new Midfielder("Osvaldo ", " Ardiles ", 25, 02, " Left Midfielder", 170, 70, 38, new PlayerStatistics(3, 9, 32, 6, 6, 1, 0), new TrainingStatistics(243, 354, 18, 53)));
-        midfielders.add(new Midfielder("Americo ", " Gallego ", 23, 06, " Rigth Midfielder", 170, 70, 28, new PlayerStatistics(0, 5, 26, 7, 14, 10, 5), new TrainingStatistics(308, 116, 17, 92)));
-        midfielders.add(new Midfielder("Ruben ", " Galvan ", 26, 8, " Central Midfielder", 170, 70, 65, new PlayerStatistics(1, 9, 26, 0, 6, 5, 2), new TrainingStatistics(204, 326, 15, 32)));
-        midfielders.add(new Midfielder("Omar ", " Larrosa ", 30, 12, " Rigth Midfielder", 170, 70, 54, new PlayerStatistics(0, 5, 32, 0, 9, 1, 0), new TrainingStatistics(411, 243, 16, 42)));
-        midfielders.add(new Midfielder("Jose Daniel ", " Valencia ", 22, 21, " Central Midfielder", 170, 70, 38, new PlayerStatistics(0, 9, 43, 12, 3, 0, 0), new TrainingStatistics(500, 300, 14, 70)));
-        midfielders.add(new Midfielder("Ricardo ", " Villa ", 25, 22, " Left Midfielder", 170, 70, 41, new PlayerStatistics(2, 14, 41, 4, 20, 15, 0), new TrainingStatistics(278, 302, 14, 65)));
+        midfielders.add(new Midfielder("Norberto ", " Alonso ", 25, 01, " Central Midfielder", 170, 70, 45, new PlayerStatistics(1, 4, 20, 0, 7, 5, 3), new TrainingStatistics(203, 401, 16, 42),"\uD83D\uDE03"));
+        midfielders.add(new Midfielder("Osvaldo ", " Ardiles ", 25, 02, " Left Midfielder", 170, 70, 38, new PlayerStatistics(3, 9, 32, 6, 6, 1, 0), new TrainingStatistics(243, 354, 18, 53),"\uD83D\uDE04"));
+        midfielders.add(new Midfielder("Americo ", " Gallego ", 23, 06, " Rigth Midfielder", 170, 70, 28, new PlayerStatistics(0, 5, 26, 7, 14, 10, 5), new TrainingStatistics(308, 116, 17, 92),"\uD83D\uDE15"));
+        midfielders.add(new Midfielder("Ruben ", " Galvan ", 26, 8, " Central Midfielder", 170, 70, 65, new PlayerStatistics(1, 9, 26, 0, 6, 5, 2), new TrainingStatistics(204, 326, 15, 32),"\uD83D\uDE10"));
+        midfielders.add(new Midfielder("Omar ", " Larrosa ", 30, 12, " Rigth Midfielder", 170, 70, 54, new PlayerStatistics(0, 5, 32, 0, 9, 1, 0), new TrainingStatistics(411, 243, 16, 42),"\uD83D\uDE04"));
+        midfielders.add(new Midfielder("Jose Daniel ", " Valencia ", 22, 21, " Central Midfielder", 170, 70, 38, new PlayerStatistics(0, 9, 43, 12, 3, 0, 0), new TrainingStatistics(500, 300, 14, 70),"\uD83D\uDE15"));
+        midfielders.add(new Midfielder("Ricardo ", " Villa ", 25, 22, " Left Midfielder", 170, 70, 41, new PlayerStatistics(2, 14, 41, 4, 20, 15, 0), new TrainingStatistics(278, 302, 14, 65),"\uD83D\uDE03"));
         ArrayList<Player> strikers = new ArrayList<>();
-        strikers.add(new Striker("Daniel ", " Bertoni ", 23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45)));
-        strikers.add(new Striker("René ", " Houseman ", 24, 9, " Left Striker ", 170, 70, 67, new PlayerStatistics(23, 42, 34, 2, 1, 0, 0), new TrainingStatistics(421, 602, 19, 76)));
-        strikers.add(new Striker("Mario Alberto ", " Kempes ", 23, 10, " Right Striker ", 170, 70, 560, new PlayerStatistics(301, 200, 45, 0, 5, 3, 1), new TrainingStatistics(500, 720, 23, 98)));
-        strikers.add(new Striker("Loepardo Jacinto ", " Luque ", 29, 14, " Central Striker ", 170, 70, 65, new PlayerStatistics(67, 49, 54, 8, 5, 2, 1), new TrainingStatistics(321, 444, 16, 76)));
-        strikers.add(new Striker("Oscar ", " Ortiz ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44)));
-        Coach coach = new Coach("Cesar Luis", "Menotti", 76, 34);
-        MedicalTeam medicalTeam = new MedicalTeam();
+        strikers.add(new Striker("Daniel ", " Bertoni ", 23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45),"\uD83D\uDE15"));
+        strikers.add(new Striker("René ", " Houseman ", 24, 9, " Left Striker ", 170, 70, 67, new PlayerStatistics(23, 42, 34, 2, 1, 0, 0), new TrainingStatistics(421, 602, 19, 76),"\uD83D\uDE10"));
+        strikers.add(new Striker("Mario Alberto ", " Kempes ", 23, 10, " Right Striker ", 170, 70, 560, new PlayerStatistics(301, 200, 45, 0, 5, 3, 1), new TrainingStatistics(500, 720, 23, 98),"\uD83D\uDE04"));
+        strikers.add(new Striker("Loepardo Jacinto ", " Luque ", 29, 14, " Central Striker ", 170, 70, 65, new PlayerStatistics(67, 49, 54, 8, 5, 2, 1), new TrainingStatistics(321, 444, 16, 76),"\uD83D\uDE10"));
+        strikers.add(new Striker("Oscar ", " Ortiz ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
+
         medicalTeam.addMedicals(new Medical("joe", "doe", 25, "Psychical Therapist"));
         medicalTeam.addMedicals(new Medical("Pepe", "Carlos", 42, "Psychological Therapist"));
         medicalTeam.addMedicals(new Medical("Raul", "Alonzo", 37, "Nurse"));
@@ -607,13 +606,13 @@ public class Uimenu {
     }
     public static void clubMenu() {
         ArrayList<Player> ps = new ArrayList<>();
-        ps.add(new Player("Elias", "Alderete", 28, 19, "Sriker", 70, 170, new PlayerStatistics(9, 4, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
-        ps.add(new Player("Leandro", "Gimenez", 23, 9, "Sriker", 70, 170, new PlayerStatistics(3, 4, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
-        ps.add(new Player("Edgardo", "Hoyos", 23, 17, "Midfielder", 70, 170, new PlayerStatistics(4, 6, 20, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
-        ps.add(new Player("Alejandro", "Cuellos", 29, 8, "Midfielder", 70, 170, new PlayerStatistics(2, 5, 24, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
-        ps.add(new Player("Fernando", "Quiroz", 25, 3, "Defence", 70, 170, new PlayerStatistics(2, 3, 30, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
-        ps.add(new Player("Emanuel", "lettieri", 26, 6, "Defence", 70, 170, new PlayerStatistics(0, 3, 32, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
-        ps.add(new Player("Gaston", "Brambatti", 32, 1, "Goalkeeper", 70, 170, new PlayerStatistics(0, 0, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100)));
+        ps.add(new Player("Elias", "Alderete", 28, 19, "Sriker", 70, 170, new PlayerStatistics(9, 4, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE04"));
+        ps.add(new Player("Leandro", "Gimenez", 23, 9, "Sriker", 70, 170, new PlayerStatistics(3, 4, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE10"));
+        ps.add(new Player("Edgardo", "Hoyos", 23, 17, "Midfielder", 70, 170, new PlayerStatistics(4, 6, 20, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE03"));
+        ps.add(new Player("Alejandro", "Cuellos", 29, 8, "Midfielder", 70, 170, new PlayerStatistics(2, 5, 24, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE03"));
+        ps.add(new Player("Fernando", "Quiroz", 25, 3, "Defence", 70, 170, new PlayerStatistics(2, 3, 30, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE10"));
+        ps.add(new Player("Emanuel", "lettieri", 26, 6, "Defence", 70, 170, new PlayerStatistics(0, 3, 32, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE03"));
+        ps.add(new Player("Gaston", "Brambatti", 32, 1, "Goalkeeper", 70, 170, new PlayerStatistics(0, 0, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE04"));
 
         Scanner sc = new Scanner(System.in);
         int response1 = 0;
@@ -673,5 +672,64 @@ public class Uimenu {
             }
 
         }while (responze != 0);
+    }
+    public static void coachMenu(){
+        Scanner zc = new Scanner(System.in);
+        int respomce = 0;
+        do {
+            System.out.println("1. see Coach");
+            System.out.println("2. see Training Cycle");
+            System.out.println("3. see Defencive Strategic");
+            System.out.println("4. see Offensive Strategic");
+            System.out.println("0. Back");
+            respomce = Integer.valueOf(zc.nextLine());
+            switch (respomce){
+                case 1:
+                    System.out.println(coach);
+                    System.out.println();
+                    back();
+                    break;
+                case 2:
+                    coach.trainingRutine();
+                    back();
+                    break;
+                case 3:
+                    coach.defensiveStrategy();
+                    back();
+                    break;
+                case 4:
+                    coach.offenciveStrategy();
+                    back();
+                    break;
+                case 0:
+                    break;
+            }
+
+        }while (respomce != 0);
+    }
+    public static void medicalMenu(){
+        Scanner sc = new Scanner(System.in);
+        int rezponce = 0;
+        do {
+            System.out.println("1. See Medical Team");
+            System.out.println("2. See Result of Psycologic Test ");
+            System.out.println("0. Back");
+            rezponce = Integer.valueOf(sc.nextLine());
+            switch (rezponce){
+                case 1:
+                    System.out.println(medicalTeam);
+                    System.out.println();
+                    back();
+                    break;
+                case 2:
+                    medical.playersEmotions();
+                    System.out.println();
+                    back();
+                    break;
+                case 0:
+                    break;
+            }
+
+        }while (rezponce != 0);
     }
 }

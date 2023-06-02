@@ -3,15 +3,19 @@ package team.players;
 import team.TrainingStatistics;
 
 public class Defence extends Player {
+    private int habilityOfDefend = (int) (Math.random() * 10) + 1;
     private int ballDefended;
 
-    public Defence(String firstName, String lastName, int age, int number, String position, int height, int weight,int ballDefended, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics) {
-        super(firstName, lastName, age, number, position, height, weight, playerStatistics, trainingStatistics);
+    public Defence(String firstName, String lastName, int age, int number, String position, int height, int weight,int ballDefended, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics,String emotions) {
+        super(firstName, lastName, age, number, position, height, weight, playerStatistics, trainingStatistics,emotions);
         this.ballDefended = ballDefended;
+
+
     }
 
-    public Defence(int ballDefended) {
+    public Defence(int ballDefended,int habilityOfDefend) {
         this.ballDefended = ballDefended;
+
     }
 
     public int getBallDefended() {
@@ -27,4 +31,6 @@ public class Defence extends Player {
         return "Defence" + super.toString();
 
     }
+
+
 }
