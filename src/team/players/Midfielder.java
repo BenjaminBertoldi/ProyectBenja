@@ -6,8 +6,8 @@ public class Midfielder extends Player {
 
     private int sideline;
 
-    public Midfielder(String firstName, String lastName, int age, int number, String position, int height, int weight,int sideline, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics) {
-        super(firstName, lastName, age, number, position, height, weight, playerStatistics, trainingStatistics);
+    public Midfielder(String firstName, String lastName, int age, int number, String position, int height, int weight,int sideline, PlayerStatistics playerStatistics, TrainingStatistics trainingStatistics,String emotions) {
+        super(firstName, lastName, age, number, position, height, weight, playerStatistics, trainingStatistics,emotions);
         this.sideline = sideline;
     }
 
