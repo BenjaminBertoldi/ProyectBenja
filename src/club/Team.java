@@ -121,7 +121,8 @@ public void training (){
         System.out.println(pl10.getFirstName()+pl10.getLastName()+pl10.getPosition());
         System.out.println(pl11.getFirstName()+pl11.getLastName()+pl11.getPosition());
     }
-        }
+
+}
 
 
 
