@@ -9,6 +9,7 @@ import team.players.*;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+
 public class Uimenu {
     static Sponsor sp1 = new Sponsor("\nCoca Cola","Unique, as First Love \n 100 years of the Unique Bottle ");
     static Sponsor sp2 = new Sponsor("\nGarbarino","The Super Discounts arrived \n ¡¡70% off!!");
@@ -16,9 +17,11 @@ public class Uimenu {
     public static Partner partner;
     static Medical medical ;
     static Team team1 = new Team("Chavos Football");
+
     public static Team team = new Team();
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
     static ArrayList<Partner> partners = new ArrayList<>();
+    static ArrayList<Player> players = new ArrayList<>();
     static Field f1 = new Field(105,70,20.0);
     static Stadium  s = new Stadium(1000,14000,f1);
     static Die d = new Die();
@@ -524,7 +527,7 @@ public class Uimenu {
         medicalTeam.addMedicals(new Medical("Pepe", "Carlos", 42, "Psychological Therapist"));
         medicalTeam.addMedicals(new Medical("Raul", "Alonzo", 37, "Nurse"));
         medicalTeam.addMedicals(new Medical("Luciana", "Pereira", 26, "Doctor"));
-        ArrayList<Player> players = new ArrayList<>();
+
         players.addAll(goalkeepers);
         players.addAll(defences);
         players.addAll(midfielders);
@@ -722,7 +725,11 @@ public class Uimenu {
                     back();
                     break;
                 case 2:
-                    medical.playersEmotions();
+                    for (Medical medical1 : medicalTeam.getMedicals()) {
+                       if( medical1.getSpeciality() == "Psychological Therapist"){
+                           medical1.playersEmotions(players);
+                       }
+                    }
                     System.out.println();
                     back();
                     break;
