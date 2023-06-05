@@ -89,20 +89,23 @@ public int throwdice(Die d){
 }
 
 public void training (){
+
         for (Player player : players){
         int random = new Random().nextInt(5 - 1) + 1;
         player.addHoursOfTraining(random);
         System.out.println("Player: " +player.getFirstName()+player.getLastName() + " Hours of Training: " + player.getHoursOfTraining() );
     }
     }
-    public void playerSelection (){
-        int [] playerIndex = {0,3,4,5,6,10,11,12,13,19,20};
+    public List<Player> playerSelection (int[] playerIndex){
+        List<Player> elevenInTheGame = new ArrayList<>();
 
         System.out.println("Players selected");
         for (int i = 0; i<playerIndex.length; i++){
             Player player = players.get(playerIndex[i]);
-            System.out.println(player.getFirstName() + player.getLastName() + player.getPosition());
+            elevenInTheGame.add(player);
+
         }
+        return elevenInTheGame;
     }
 
 }
