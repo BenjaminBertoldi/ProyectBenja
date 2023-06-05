@@ -20,8 +20,11 @@ public class Uimenu {
 
     public static Team team = new Team();
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
+
     static ArrayList<Partner> partners = new ArrayList<>();
     static ArrayList<Player> players = new ArrayList<>();
+
+
     static Field f1 = new Field(105,70,20.0);
     static Stadium  s = new Stadium(1000,14000,f1);
     static Die d = new Die();
@@ -520,7 +523,11 @@ public class Uimenu {
                     back();
                     break;
                 case 2:
-                    team.playerSelection();
+                    int [] playerIndex = {0,3,4,5,6,10,11,12,13,19,20};
+                    ArrayList<Player> selectedPlayer = (ArrayList<Player>) team.playerSelection(playerIndex);
+                    for (Player player : selectedPlayer){
+                        System.out.println(player.getFirstName() + player.getLastName() + player.getPosition());
+                    }
                     back();
                 case 0:
                     break;
