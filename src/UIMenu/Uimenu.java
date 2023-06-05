@@ -278,7 +278,7 @@ public class Uimenu {
     }
 
     public static void showPlayerMenu() {
-        createTeam();
+
 
         System.out.println("Player List");
         int responce = 0;
@@ -294,164 +294,16 @@ public class Uimenu {
 
             switch (responce) {
                 case 1:
-                    for (Player p :
-                            team.getPlayers()) {
-                        if (p instanceof Goalkeeper) {
-                            System.out.println(p);
-                        }
-                    }
-
-                    System.out.println();
-                    int responce1 = 0;
-                    do {
-                        System.out.println("1. Player Stadistics");
-                        System.out.println("2. Training Stadistics");
-                        System.out.println("select 0 to back");
-                        responce1 = Integer.valueOf(sc.nextLine());
-                        switch (responce1) {
-                            case 1:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Goalkeeper) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 2:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Goalkeeper) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 0:
-                                break;
-                            default:
-                                System.out.println("Try Again");
-                        }
-                    } while (responce1 != 0);
+                    showPlayers(team.getPlayers(),Goalkeeper.class);
                     break;
                 case 2:
-                    for (Player p :
-                            team.getPlayers()) {
-                        if (p instanceof Defence) {
-                            System.out.println(p);
-                        }
-                    }
-                    System.out.println();
-                    int responce2 = 0;
-                    do {
-                        System.out.println("1. Player Stadistics");
-                        System.out.println("2. Training Stadistics");
-                        System.out.println("select 0 to back");
-                        responce2 = Integer.valueOf(sc.nextLine());
-                        switch (responce2) {
-                            case 1:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Defence) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 2:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Defence) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 0:
-                                break;
-                            default:
-                                System.out.println("Try Again");
-                        }
-                    } while (responce2 != 0);
+                   showPlayers(team.getPlayers(),Defence.class);
                     break;
                 case 3:
-                    for (Player p :
-                            team.getPlayers()) {
-                        if (p instanceof Midfielder) {
-                            System.out.println(p);
-                        }
-                    }
-                    System.out.println();
-                    int responce3 = 0;
-                    do {
-                        System.out.println("1. Player Stadistics");
-                        System.out.println("2. Training Stadistics");
-                        System.out.println("select 0 to back");
-                        responce3 = Integer.valueOf(sc.nextLine());
-                        switch (responce3) {
-                            case 1:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Midfielder) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 2:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Midfielder) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 0:
-                                break;
-                            default:
-                                System.out.println("Try Again");
-                        }
-                    } while (responce3 != 0);
+                   showPlayers(team.getPlayers(),Midfielder.class);
                     break;
                 case 4:
-                    for (Player p :
-                            team.getPlayers()) {
-                        if (p instanceof Striker) {
-                            System.out.println(p);
-                        }
-                    }
-                    int responce4 = 0;
-                    do {
-                        System.out.println("1. Player Stadistics");
-                        System.out.println("2. Training Stadistics");
-                        System.out.println("select 0 to back");
-                        responce4 = Integer.valueOf(sc.nextLine());
-                        switch (responce4) {
-                            case 1:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Striker) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 2:
-                                for (Player p :
-                                        team.getPlayers()) {
-                                    if (p instanceof Striker) {
-                                        System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
-                                    }
-                                }
-                                back();
-                                break;
-                            case 0:
-                                break;
-                            default:
-                                System.out.println("Try Again");
-                        }
-                    } while (responce4 != 0);
+                    showPlayers(team.getPlayers(),Striker.class);
                     break;
                 case 0:
                     break;
@@ -738,5 +590,49 @@ public class Uimenu {
             }
 
         }while (rezponce != 0);
+    }
+    public static void showPlayers(List<Player> players,Class<? extends Player> playerClass){
+        for (Player p : players){
+            if (playerClass.isInstance(p)){
+                System.out.println(p);
+            }
+        }
+        int responce1 = 0;
+        Scanner sc = new Scanner(System.in);
+
+        do {
+            System.out.println("1. Player Stadistics");
+            System.out.println("2. Training Stadistics");
+            System.out.println("select 0 to back");
+            responce1 = Integer.valueOf(sc.nextLine());
+            switch (responce1) {
+                case 1:
+                    showStatistics(players,playerClass);
+                    back();
+                    break;
+                case 2:
+                    showTrainingStadististics(players, playerClass );
+                    back();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Try Again");
+            }
+        } while (responce1 != 0);
+    }
+    public static void showStatistics(List<Player> players,Class<? extends Player> playerClass){
+        for (Player p : players){
+            if (playerClass.isInstance(p)){
+                System.out.println(p.getFirstName() + p.getLastName() + p.getStatistics());
+            }
+        }
+    }
+    public static void showTrainingStadististics(List<Player> players, Class<? extends Player> playerClass){
+        for (Player p: players){
+            if (playerClass.isInstance(p)){
+                System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
+            }
+        }
     }
 }
