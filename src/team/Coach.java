@@ -5,7 +5,6 @@ import club.Team;
 import people.People;
 
 public class Coach extends People {
-
     private int chagesRealized;
 
     public Coach(String firstName, String lastName, int age, int chagesRealized) {
