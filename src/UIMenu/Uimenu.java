@@ -20,13 +20,11 @@ public class Uimenu {
 
     public static Team team = new Team();
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
-
     static ArrayList<Partner> partners = new ArrayList<>();
     static ArrayList<Player> players = new ArrayList<>();
-
-
     static Field f1 = new Field(105,70,20.0);
     static Stadium  s = new Stadium(1000,14000,f1);
+    static Player player = new Player();
     static Die d = new Die();
     static Coach coach = new Coach("Cesar Luis", "Menotti", 76, 34);
     static MedicalTeam medicalTeam = new MedicalTeam();
@@ -448,20 +446,94 @@ public class Uimenu {
 
     }
 
+
     public static void showGameMenu() {
 
-        Sponsor adBreack = Sponsor.getAdBreack(sp1,sp2,sp3);
-        System.out.println( adBreack.getSlogan() + adBreack.getHallmarkAgherent());
+        Sponsor adBreack = Sponsor.getAdBreack(sp1, sp2, sp3);
+        System.out.println(adBreack.getSlogan() + adBreack.getHallmarkAgherent());
         int teams1 = team1.throwdice(d);
         int teams2 = createTeam().throwdice(d);
 
-
+        Team startingTeam =null;
+        Team secondTeam = null;
         if (teams1 > teams2) {
-            System.out.println(" win " + team1.getTeamName());
+            System.out.println(" Start " + team1.getTeamName());
+            startingTeam = team1;
+            secondTeam = createTeam();
+        } else if (teams1 < teams2) {
+            System.out.println(" Start " + createTeam().getTeamName());
+            startingTeam = createTeam();
+            secondTeam = team1;
+        } else if (teams1 == teams2) {
+            System.out.println("Trow Die Again");
+            return;
+        }
+
+        int team1Goals = 0;
+        int team2Goals = 0;
+
+        for (Player player : startingTeam.getPlayers()){
+            int action = startingTeam.throwdice(d);
+
+            switch (action){
+                case 1:
+                    System.out.println("pass");
+                    player.pass();
+                    break;
+                case 2:
+                    System.out.println("¡¡Foult!!");
+                    player.foul();
+                    secondTeam.throwdice(d);
+                    System.out.println("Change to " + secondTeam .getTeamName());
+                    break;
+                case 3:
+                    System.out.println("¡¡Corners!!");
+                    player.corners();
+                    secondTeam.throwdice(d);
+                    System.out.println("Change to " + secondTeam .getTeamName());
+                    break;
+                case 4:
+                    System.out.println("¡¡Lateral!!");
+                    player.lateral();
+                    secondTeam.throwdice(d);
+                    System.out.println("Change to " + secondTeam .getTeamName());
+                    break;
+                case 5:
+                    System.out.println("Assistence");
+                    player.assistence();
+                    break;
+                case 6:
+                    System.out.println("¡¡Goal!!");
+                    player.setgoal();
+                    secondTeam.throwdice(d);
+                    System.out.println("Change to " + secondTeam .getTeamName());
+
+                    if (startingTeam == team1){
+                        team1Goals ++;
+                    }else {
+                        team2Goals ++;
+                    }
+                    break;
+            }
+            Team temp = startingTeam;
+            startingTeam = secondTeam;
+            secondTeam = temp;
+        }
+        System.out.println("Final Score:");
+        System.out.println(team1.getTeamName() + ":" + team1Goals + "goals");
+        System.out.println(createTeam().getTeamName() + ":" + team2Goals + "goals");
+
+        if (team1Goals > team2Goals){
+            System.out.println(team1.getTeamName() + "¡¡ Win Game !!");
+        }else if (team1Goals > team2Goals){
+            System.out.println(createTeam().getTeamName() + "¡¡ Win Game !!");
         }else {
-            System.out.println(" win " + createTeam().getTeamName());
+            System.out.println(" It´s a draw ");
         }
     }
+
+
+
     public static void clubMenu() {
         ArrayList<Player> ps = new ArrayList<>();
         ps.add(new Player("Elias", "Alderete", 28, 19, "Sriker", 70, 170, new PlayerStatistics(9, 4, 10, 8, 3, 1, 0), new TrainingStatistics(100, 100, 100, 100),"\uD83D\uDE04"));
