@@ -3,7 +3,7 @@ package team.players;
 import people.People;
 import team.TrainingStatistics;
 
-public class Player extends People {
+public class Player extends People implements Actions {
     private int number;
     private String position;
     private int height;
@@ -111,11 +111,17 @@ public class Player extends People {
                 " - Height: " + height + " Cm " +
                 " - Weight: " + weight + " Kg - ";
     }
-    public void Pass(){
+    public void pass(){
        statistics.setCorrectPass(statistics.getCorrectPass() +1);
     }
     public void foul(){
         statistics.setFoul(statistics.getFoul() +1);
+    }
+    public void corners(){
+        statistics.setCorners(statistics.getCorners() +1);
+    }
+    public void lateral(){
+        statistics.setLateral(statistics.getLateral() +1);
     }
     public void assistence(){
         statistics.setAssistences(statistics.getAssistences() +1);

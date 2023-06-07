@@ -8,6 +8,8 @@ public class PlayerStatistics  {
     private int foul;
     private int yellowCard;
     private int redCard;
+    private int corners;
+    private int lateral;
 
     public PlayerStatistics(int goals, int assistences, int correctPass, int recovery, int foul, int yellowCard, int redCard) {
         this.goals = goals;
@@ -17,6 +19,24 @@ public class PlayerStatistics  {
         this.foul = foul;
         this.yellowCard = yellowCard;
         this.redCard = redCard;
+        this.corners = corners;
+        this.lateral = lateral;
+    }
+
+    public int getCorners() {
+        return corners;
+    }
+
+    public void setCorners(int corners) {
+        this.corners = corners;
+    }
+
+    public int getLateral() {
+        return lateral;
+    }
+
+    public void setLateral(int lateral) {
+        this.lateral = lateral;
     }
 
     public int getGoals() {
