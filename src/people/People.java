@@ -16,8 +16,6 @@ public class People {
     public People() {
     }
 
-    public People(String firstName, String lastName, int age, String email, String address, String idCard, int creditCardNumber) {
-    }
 
     public String getFirstName() {
         return firstName;
