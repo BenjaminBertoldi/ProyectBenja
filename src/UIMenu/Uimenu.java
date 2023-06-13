@@ -15,7 +15,6 @@ public class Uimenu {
     static Sponsor sp2 = new Sponsor("\nGarbarino","The Super Discounts arrived \n ¡¡70% off!!");
     static Sponsor sp3 = new Sponsor("\nSamsung","New Galaxi Z Flip \n keep all your memories and files with more than 2 TB of memory");
     public static Partner partner;
-    static Medical medical ;
     static Team team1 = new Team("Chavos Football");
 
     public static Team team = new Team();
@@ -24,7 +23,6 @@ public class Uimenu {
     static ArrayList<Player> players = new ArrayList<>();
     static Field f1 = new Field(105,70,20.0);
     static Stadium  s = new Stadium(1000,14000,f1);
-    static Player player = new Player();
     static Die d = new Die();
     static Coach coach = new Coach("Cesar Luis", "Menotti", 76, 34);
     static MedicalTeam medicalTeam = new MedicalTeam();
@@ -91,6 +89,7 @@ public class Uimenu {
                     do {
                         System.out.println("1.See Field Dimention");
                         System.out.println("2.See irrigate");
+                        System.out.println("0.Back");
 
                         responces = Integer.valueOf(sc.nextLine());
 
@@ -104,7 +103,6 @@ public class Uimenu {
                                 back();
                                 break;
                             case 0:
-                                back();
                                 break;
                         }
                     }while (responces != 0);
@@ -407,6 +405,7 @@ public class Uimenu {
             System.out.println("2. Buy Seat Premium");
             System.out.println("3. See Seat Available");
             System.out.println("4. See Maintenace");
+            System.out.println("5. See Weather");
             System.out.println("0. Back");
 
             Scanner sc = new Scanner(System.in);
@@ -436,6 +435,11 @@ public class Uimenu {
                     s.controlOfMaintenace();
                     back();
                     break;
+                case 5:
+                    String weatherOfStadium = s.getWeather();
+                    System.out.println("Weather of Stadium: " + weatherOfStadium);
+                    back();
+                    break;
                 case 0:
                     break;
                 default:
@@ -451,24 +455,25 @@ public class Uimenu {
 
         Sponsor adBreack = Sponsor.getAdBreack(sp1, sp2, sp3);
         System.out.println(adBreack.getSlogan() + adBreack.getHallmarkAgherent());
+        Timer diceTimer;
+        Team team2 = createTeam();
         int teams1 = team1.throwdice(d);
-        int teams2 = createTeam().throwdice(d);
+        int teams2 = team2.throwdice(d);
 
-        Team startingTeam =null;
+        Team startingTeam = null;
         Team secondTeam = null;
         if (teams1 > teams2) {
             System.out.println(" Start " + team1.getTeamName());
             startingTeam = team1;
-            secondTeam = createTeam();
+            secondTeam = team2;
         } else if (teams1 < teams2) {
-            System.out.println(" Start " + createTeam().getTeamName());
-            startingTeam = createTeam();
+            System.out.println(" Start " + team2.getTeamName());
+            startingTeam = team2;
             secondTeam = team1;
         } else if (teams1 == teams2) {
             System.out.println("Trow Die Again");
             return;
         }
-
         int team1Goals = 0;
         int team2Goals = 0;
 
@@ -521,12 +526,12 @@ public class Uimenu {
         }
         System.out.println("Final Score:");
         System.out.println(team1.getTeamName() + ":" + team1Goals + "goals");
-        System.out.println(createTeam().getTeamName() + ":" + team2Goals + "goals");
+        System.out.println(team2.getTeamName() + ":" + team2Goals + "goals");
 
         if (team1Goals > team2Goals){
             System.out.println(team1.getTeamName() + "¡¡ Win Game !!");
-        }else if (team1Goals > team2Goals){
-            System.out.println(createTeam().getTeamName() + "¡¡ Win Game !!");
+        }else if (team1Goals < team2Goals){
+            System.out.println(team2.getTeamName() + "¡¡ Win Game !!");
         }else {
             System.out.println(" It´s a draw ");
         }

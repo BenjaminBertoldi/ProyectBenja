@@ -2,7 +2,8 @@ package team.players;
 
 import team.TrainingStatistics;
 
-public class Striker extends Player {
+public class Striker extends Player implements Hydration {
+
 
     private int chanceOfGoals;
 
@@ -30,5 +31,22 @@ public class Striker extends Player {
         return "Striker: " + super.toString();
     }
 
+    @Override
+    public double calculateHydration(int minutsPayed){
+        double hidrationStarting = 1.0;
+        double reductionForMinuts = 0.01;
+        double hidrationActually  = hidrationStarting - (minutsPayed * reductionForMinuts);
+        if (hidrationActually < 0){
+            hidrationActually = 0;
+        }
+        return hidrationActually;
+    }
+    @Override
+    public void sendAlert(){
+        double hidrationActually = calculateHydration(0);
+        if (hidrationActually <= LEVEL_OF_HYDRATION_CRITIC){
+            System.out.println("Water boy delivered a bottle");
+        }
 
-}
+
+}}

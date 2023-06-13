@@ -6,14 +6,17 @@ import people.People;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
-public class Stadium {
+public class Stadium implements Weather {
+
     private int availableSeatPremium;
     private int availableSeatGeneral;
     private int seatPremium;
     private int seatGeneral;
    private Field field ;
    private Date dateFoLastMaintenace;
+   private Random random;
    private List<People> teamOfMaintenance;
 
 
@@ -27,6 +30,7 @@ public class Stadium {
         this.availableSeatGeneral = seatGeneral;
         this.availableSeatPremium = seatPremium;
         this.field = field;
+        this.random = new Random();
     }
 
     public List<People> getTeamOfMaintenance() {
@@ -121,5 +125,12 @@ public class Stadium {
         System.out.println("Remplase All the light bulb burned");
         System.out.println("Maintenace Made for: " + teamOfMaintenance + ".");
     }
+
+    public String getWeather(){
+        String[] weaters = {"Cloudy","Sunny","Rainy"};
+        int index = random.nextInt(weaters.length);
+        return weaters[index];
+    }
+
 
 }
