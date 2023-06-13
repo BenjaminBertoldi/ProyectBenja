@@ -1,8 +1,12 @@
 package club;
 
-public  class Field  {
+import java.util.Random;
+
+public  class Field implements Weather {
+
     private double lennght = 105;
     private double width = 70;
+    private Random random;
 
     double fieldArea = lennght * width;
     private double levelOfDrampness;
@@ -16,6 +20,7 @@ public  class Field  {
         this.lennght = lennght;
         this.width = width;
         this.levelOfDrampness = levelOfDrampness;
+        this.random = new Random();
     }
 
     public double getLennght() {
@@ -63,7 +68,9 @@ public  class Field  {
 public void irrigate(){
 if (levelOfDrampness >= maximumThreshold){
     System.out.println("Irrigate Stop");
-}else {
+} else if (getWeather()== "Rainy") {
+    System.out.println("Don´t Irrigate");
+} else {
     System.out.println("Irrigate Activate");
     openValve = true;
     applyWater(waterQuantity);
@@ -88,5 +95,12 @@ if (levelOfDrampness >= maximumThreshold){
         double increments = totalWater / soilCapacity;
         return increments;
     }
+    public String getWeather(){
+        String[] weaters = {"Cloudy","Sunny","Rainy"};
+        int index = random.nextInt(weaters.length);
+        return weaters[index];
+    }
+
+
 }
 

@@ -3,7 +3,7 @@ package team.players;
 import team.TrainingStatistics;
 
 public class Defence extends Player implements Hydration {
-    private final double LEVEL_OF_HYDRATION_CRITIC = 0.2;
+
     private int habilityOfDefend = (int) (Math.random() * 10) + 1;
     private int ballDefended;
 

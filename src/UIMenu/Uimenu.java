@@ -89,6 +89,7 @@ public class Uimenu {
                     do {
                         System.out.println("1.See Field Dimention");
                         System.out.println("2.See irrigate");
+                        System.out.println("0.Back");
 
                         responces = Integer.valueOf(sc.nextLine());
 
@@ -102,7 +103,6 @@ public class Uimenu {
                                 back();
                                 break;
                             case 0:
-                                back();
                                 break;
                         }
                     }while (responces != 0);
@@ -405,6 +405,7 @@ public class Uimenu {
             System.out.println("2. Buy Seat Premium");
             System.out.println("3. See Seat Available");
             System.out.println("4. See Maintenace");
+            System.out.println("5. See Weather");
             System.out.println("0. Back");
 
             Scanner sc = new Scanner(System.in);
@@ -434,6 +435,11 @@ public class Uimenu {
                     s.controlOfMaintenace();
                     back();
                     break;
+                case 5:
+                    String weatherOfStadium = s.getWeather();
+                    System.out.println("Weather of Stadium: " + weatherOfStadium);
+                    back();
+                    break;
                 case 0:
                     break;
                 default:
@@ -449,6 +455,7 @@ public class Uimenu {
 
         Sponsor adBreack = Sponsor.getAdBreack(sp1, sp2, sp3);
         System.out.println(adBreack.getSlogan() + adBreack.getHallmarkAgherent());
+        Timer diceTimer;
         Team team2 = createTeam();
         int teams1 = team1.throwdice(d);
         int teams2 = team2.throwdice(d);
@@ -467,7 +474,6 @@ public class Uimenu {
             System.out.println("Trow Die Again");
             return;
         }
-
         int team1Goals = 0;
         int team2Goals = 0;
 

@@ -3,7 +3,7 @@ package team.players;
 import team.TrainingStatistics;
 
 public class Midfielder extends Player implements Hydration {
-    private static final double LEVEL_OF_HYDRATION_CRITIC = 0.2;
+
 
     private int sideline;
 
