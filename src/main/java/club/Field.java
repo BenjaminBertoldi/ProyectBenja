@@ -12,6 +12,7 @@ public  class Field implements Weather {
     private double levelOfDrampness;
     double soilMoistureCapacity = 0.2;
     double waterQuantity = 3.0;
+    private boolean irrigated = false;
     private double minimumThreshold = 40.0;
     private double maximumThreshold = 80.0;
     private boolean openValve = false;
@@ -66,9 +67,13 @@ public  class Field implements Weather {
 
 
 public void irrigate(){
+    if (irrigated) {
+        System.out.println("Field already irrigated");
+        return;
+    }
 if (levelOfDrampness >= maximumThreshold){
     System.out.println("Irrigate Stop");
-} else if (getWeather()== "Rainy") {
+} else if (getWeather().equals("Rainy")) {
     System.out.println("Don´t Irrigate");
 } else {
     System.out.println("Irrigate Activate");
@@ -76,6 +81,7 @@ if (levelOfDrampness >= maximumThreshold){
     applyWater(waterQuantity);
     levelOfDrampness += calculateIncrementOfDrampness(waterQuantity);
     openValve = false;
+    irrigated = true;
 }
     }
     private void applyWater(double waterQuantity){
@@ -96,9 +102,9 @@ if (levelOfDrampness >= maximumThreshold){
         return increments;
     }
     public String getWeather(){
-        String[] weaters = {"Cloudy","Sunny","Rainy"};
-        int index = random.nextInt(weaters.length);
-        return weaters[index];
+        String[] weathers = {"Cloudy","Sunny","Rainy"};
+        int index = random.nextInt(weathers.length);
+        return weathers[index];
     }
 
 

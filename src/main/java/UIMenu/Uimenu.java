@@ -189,19 +189,21 @@ public class Uimenu {
 
         System.out.println(" Create User ");
         System.out.println(" First Name:");
-        firstName = imput.next();
+        firstName = imput.nextLine();
         System.out.println(" Last Name:");
-        lastName = imput.next();
+        lastName = imput.nextLine();
         System.out.println(" Age:");
         age = imput.nextInt();
+        imput.nextLine();
         System.out.println(" ID Card:");
         idCard = imput.nextInt();
         user.setIdCard(idCard);
+        imput.nextLine();
         System.out.println(" Address:");
-        address = imput.next();
+        address = imput.nextLine();
         user.setAddress(address);
         System.out.println(" Email:");
-        email = imput.next();
+        email = imput.nextLine();
         user.setEmail(email);
         System.out.println(" Insert Credit Card Number:");
         creditCardNumber = imput.nextInt();
