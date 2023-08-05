@@ -149,6 +149,10 @@ public class Stadium implements Weather {
                 throw new IllegalStateException("Invalid day of week: " + dayOfWeek );
         }
     }
+    public void startMaintenanceTask(){
+        Thread maintenanceThread = new Thread(() -> controlOfMaintenace());
+        maintenanceThread.start();
+    }
 
     public String getWeather(){
         String[] weaters = {"Cloudy","Sunny","Rainy"};
