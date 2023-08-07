@@ -1,4 +1,5 @@
 package com.solvd.usages.UIMenu;
+import com.solvd.conexion.conexion;
 import com.solvd.usages.club.team.*;
 import com.solvd.usages.game.Die;
 import com.solvd.usages.game.GameDuration;
@@ -6,6 +7,9 @@ import com.solvd.usages.people.People;
 import com.solvd.usages.people.User;
 import com.solvd.usages.team.*;
 import com.solvd.usages.team.players.*;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -128,7 +132,7 @@ public class Uimenu {
                                 System.out.println("User Crate Successfully");
                                 break;
                             case 2:
-                                insertUser(partner);
+                                insertUser();
                                 break;
                             case 0:
                                 break;
@@ -178,7 +182,7 @@ public class Uimenu {
         } while (responce != 0);
     }
 
-    public static void createUser() {
+    public static Partner createUser() {
         User user = new User();
         String firstName = "";
         String lastName = "";
@@ -254,25 +258,39 @@ public class Uimenu {
         }
 
         partner = new Partner(firstName, lastName, age, adherentPartner, activePartner, user);
+        partner.saveToDataBase();
+        return partner;
     }
 
-    public static boolean insertUser(Partner partner) {
+    public static boolean insertUser() {
         Scanner imput = new Scanner(System.in);
         System.out.println("Inser Email registred");
         String emailImput = imput.nextLine();
+        try {
+            conexion con = new conexion();
+            Statement st = con.connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM partner WHERE email ='" + emailImput + "'");
 
-        if (partner == null) {
-            System.out.println(" Don´t user created ");
-            return false;
-        } else if (partner.getUser().getEmail().equals(emailImput)) {
-            System.out.println("Welcome " + partner.getFirstName());
-            System.out.println(partner);
+        if (rs.next()) {
+          int id = rs.getInt("id");
+          String firstName = rs.getString("firstName");
+          String lastName = rs.getString("lastName");
+          int age = rs.getInt("age");
+          String email = rs.getString("email");
+            System.out.println("Welcome " + firstName + " " + lastName);
+            con.connection.close();
             return true;
-        } else {
-            System.out.println("Email not registred");
+        }else {
+            System.out.println("Email not registered");
+            con.connection.close();
+            return false;
+        }
+    }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
+
 
 
     public static void showTeamMenu() {
@@ -399,7 +417,7 @@ public class Uimenu {
         midfielders.add(new Midfielder("Jose Daniel ", " Valencia ", 22, 21, " Central Midfielder", 170, 70, 38, new PlayerStatistics(0, 9, 43, 12, 3, 0, 0), new TrainingStatistics(500, 300, 14, 70),"\uD83D\uDE15"));
         midfielders.add(new Midfielder("Ricardo ", " Villa ", 25, 22, " Left Midfielder", 170, 70, 41, new PlayerStatistics(2, 14, 41, 4, 20, 15, 0), new TrainingStatistics(278, 302, 14, 65),"\uD83D\uDE03"));
         ArrayList<Player> strikers = new ArrayList<>();
-        strikers.add(new Striker("Daniel ", " Bertoni ", 23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45),"\uD83D\uDE15"));
+        strikers.add(new Striker("Daniel ", " Bertoni ",23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45),"\uD83D\uDE15"));
         strikers.add(new Striker("René ", " Houseman ", 24, 9, " Left Striker ", 170, 70, 67, new PlayerStatistics(23, 42, 34, 2, 1, 0, 0), new TrainingStatistics(421, 602, 19, 76),"\uD83D\uDE10"));
         strikers.add(new Striker("Mario Alberto ", " Kempes ", 23, 10, " Right Striker ", 170, 70, 560, new PlayerStatistics(301, 200, 45, 0, 5, 3, 1), new TrainingStatistics(500, 720, 23, 98),"\uD83D\uDE04"));
         strikers.add(new Striker("Loepardo Jacinto ", " Luque ", 29, 14, " Central Striker ", 170, 70, 65, new PlayerStatistics(67, 49, 54, 8, 5, 2, 1), new TrainingStatistics(321, 444, 16, 76),"\uD83D\uDE10"));
