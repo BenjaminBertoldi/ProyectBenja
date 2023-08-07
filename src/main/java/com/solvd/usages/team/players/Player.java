@@ -4,6 +4,7 @@ import com.solvd.usages.people.People;
 import com.solvd.usages.team.TrainingStatistics;
 
 public class Player extends People implements Actions {
+    private int id;
     private int number;
     private String position;
     private int height;
@@ -100,6 +101,14 @@ public class Player extends People implements Actions {
     }
     public void addHoursOfTraining(int hours){
         hoursOfTraining += hours;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

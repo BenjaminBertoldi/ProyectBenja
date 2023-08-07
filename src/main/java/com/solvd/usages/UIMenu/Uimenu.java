@@ -1,4 +1,5 @@
 package com.solvd.usages.UIMenu;
+import com.solvd.conexion.conexion;
 import com.solvd.usages.club.team.*;
 import com.solvd.usages.game.Die;
 import com.solvd.usages.game.GameDuration;
@@ -6,6 +7,9 @@ import com.solvd.usages.people.People;
 import com.solvd.usages.people.User;
 import com.solvd.usages.team.*;
 import com.solvd.usages.team.players.*;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -15,17 +19,19 @@ public class Uimenu {
     static Sponsor sp2 = new Sponsor("\nGarbarino","The Super Discounts arrived \n ¡¡70% off!!");
     static Sponsor sp3 = new Sponsor("\nSamsung","New Galaxi Z Flip \n keep all your memories and files with more than 2 TB of memory");
     public static Partner partner;
-    static Team team1 = new Team("Chavos Football");
 
     public static Team team = new Team();
     static Club club = new Club("Tovichas Club","Huberman 1750 - Nueva Italia - Cordoba",team );
     static ArrayList<Partner> partners = new ArrayList<>();
     static ArrayList<Player> players = new ArrayList<>();
+    static ArrayList<Player> playersTeam1 = new ArrayList<>();
     static Field f1 = new Field(105,70,20.0);
     static Stadium s = new Stadium(1000,14000,f1);
     static Die d = new Die();
     static Coach coach = new Coach("Cesar Luis", "Menotti", 76, 34);
+    static Coach coach1 = new Coach("Alberto", "Suppici", 56, 34);
     static MedicalTeam medicalTeam = new MedicalTeam();
+    static MedicalTeam medicalTeam1 = new MedicalTeam();
     static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
 
 
@@ -126,7 +132,7 @@ public class Uimenu {
                                 System.out.println("User Crate Successfully");
                                 break;
                             case 2:
-                                insertUser(partner);
+                                insertUser();
                                 break;
                             case 0:
                                 break;
@@ -176,7 +182,7 @@ public class Uimenu {
         } while (responce != 0);
     }
 
-    public static void createUser() {
+    public static Partner createUser() {
         User user = new User();
         String firstName = "";
         String lastName = "";
@@ -193,11 +199,28 @@ public class Uimenu {
         System.out.println(" Last Name:");
         lastName = imput.nextLine();
         System.out.println(" Age:");
-        age = imput.nextInt();
-        imput.nextLine();
+        do {
+            try {
+                age = imput.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid imput. Please insert only numbers E.G : 123456");
+                imput.nextLine();
+                continue;
+            }
+            break;
+        }while (true);
         System.out.println(" ID Card:");
-        idCard = imput.nextInt();
-        user.setIdCard(idCard);
+        do {
+            try {
+                idCard = imput.nextInt();
+                user.setIdCard(idCard);
+            } catch (Exception e) {
+                System.out.println("Invalid imput. Please insert only numbers E.G : 123456");
+                imput.nextLine();
+                continue;
+            }
+            break;
+        }while (true);
         imput.nextLine();
         System.out.println(" Address:");
         address = imput.nextLine();
@@ -206,8 +229,17 @@ public class Uimenu {
         email = imput.nextLine();
         user.setEmail(email);
         System.out.println(" Insert Credit Card Number:");
+        do{
+            try{
         creditCardNumber = imput.nextInt();
         user.setCreditCardNumber(creditCardNumber);
+            } catch (Exception e) {
+                System.out.println("Invalid imput. Please insert only numbers E.G : 123456");
+                imput.nextLine();
+                continue;
+            }
+            break;
+        }while (true);
         System.out.println("select 1 for Active User , Select 2 for Adherent User");
 
         option = imput.nextInt();
@@ -226,25 +258,39 @@ public class Uimenu {
         }
 
         partner = new Partner(firstName, lastName, age, adherentPartner, activePartner, user);
+        partner.saveToDataBase();
+        return partner;
     }
 
-    public static boolean insertUser(Partner partner) {
+    public static boolean insertUser() {
         Scanner imput = new Scanner(System.in);
         System.out.println("Inser Email registred");
         String emailImput = imput.nextLine();
+        try {
+            conexion con = new conexion();
+            Statement st = con.connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM partner WHERE email ='" + emailImput + "'");
 
-        if (partner == null) {
-            System.out.println(" Don´t user created ");
-            return false;
-        } else if (partner.getUser().getEmail().equals(emailImput)) {
-            System.out.println("Welcome " + partner.getFirstName());
-            System.out.println(partner);
+        if (rs.next()) {
+          int id = rs.getInt("id");
+          String firstName = rs.getString("firstName");
+          String lastName = rs.getString("lastName");
+          int age = rs.getInt("age");
+          String email = rs.getString("email");
+            System.out.println("Welcome " + firstName + " " + lastName);
+            con.connection.close();
             return true;
-        } else {
-            System.out.println("Email not registred");
+        }else {
+            System.out.println("Email not registered");
+            con.connection.close();
+            return false;
+        }
+    }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
+
 
 
     public static void showTeamMenu() {
@@ -348,9 +394,10 @@ public class Uimenu {
         } while (responce != 0);
     }
 
+
     public static Team createTeam() {
         ArrayList<Player> goalkeepers = new ArrayList<>();
-        goalkeepers.add(new Goalkeeper("Hector ", " baley ", 27, 03, " Main Goalkeeper ", 170, 70, 34, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64),"\uD83D\uDE04"));
+        goalkeepers.add(new Goalkeeper("Hector ", " Baley ", 27, 03, " Main Goalkeeper ", 170, 70, 34, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64),"\uD83D\uDE04"));
         goalkeepers.add(new Goalkeeper("Usbaldo ", " Fillol ", 27, 05, " Second Goalkeeper ", 170, 70, 64, new PlayerStatistics(0, 0, 34, 6, 48, 2, 1), new TrainingStatistics(156, 345, 19, 71),"\uD83D\uDE03"));
         goalkeepers.add(new Goalkeeper("Ricardo ", " La Volpe ", 26, 13, " Second Goalkeeper ", 170, 70, 14, new PlayerStatistics(0, 0, 25, 6, 40, 5, 0), new TrainingStatistics(123, 342, 15, 65),"\uD83D\uDE10"));
         ArrayList<Player> defences = new ArrayList<>();
@@ -370,7 +417,7 @@ public class Uimenu {
         midfielders.add(new Midfielder("Jose Daniel ", " Valencia ", 22, 21, " Central Midfielder", 170, 70, 38, new PlayerStatistics(0, 9, 43, 12, 3, 0, 0), new TrainingStatistics(500, 300, 14, 70),"\uD83D\uDE15"));
         midfielders.add(new Midfielder("Ricardo ", " Villa ", 25, 22, " Left Midfielder", 170, 70, 41, new PlayerStatistics(2, 14, 41, 4, 20, 15, 0), new TrainingStatistics(278, 302, 14, 65),"\uD83D\uDE03"));
         ArrayList<Player> strikers = new ArrayList<>();
-        strikers.add(new Striker("Daniel ", " Bertoni ", 23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45),"\uD83D\uDE15"));
+        strikers.add(new Striker("Daniel ", " Bertoni ",23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45),"\uD83D\uDE15"));
         strikers.add(new Striker("René ", " Houseman ", 24, 9, " Left Striker ", 170, 70, 67, new PlayerStatistics(23, 42, 34, 2, 1, 0, 0), new TrainingStatistics(421, 602, 19, 76),"\uD83D\uDE10"));
         strikers.add(new Striker("Mario Alberto ", " Kempes ", 23, 10, " Right Striker ", 170, 70, 560, new PlayerStatistics(301, 200, 45, 0, 5, 3, 1), new TrainingStatistics(500, 720, 23, 98),"\uD83D\uDE04"));
         strikers.add(new Striker("Loepardo Jacinto ", " Luque ", 29, 14, " Central Striker ", 170, 70, 65, new PlayerStatistics(67, 49, 54, 8, 5, 2, 1), new TrainingStatistics(321, 444, 16, 76),"\uD83D\uDE10"));
@@ -392,9 +439,54 @@ public class Uimenu {
         team.setMedicals(medicalTeam);
         team.setPlayers(players);
         team.setCoach(coach);
+
         return pt;
+    }
+    public static Team createTeam1() {
+        Team pt1 = new Team("Chavos Football",new TeamStatistics(0,0,0,0,0),medicalTeam1,coach1,playersTeam1);
+        ArrayList<Player> goalkeepers1 = new ArrayList<>();
+        goalkeepers1.add(new Goalkeeper("Enrrique ", " Ballesteros ", 27, 03, " Main Goalkeeper ", 170, 70, 34, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64),"\uD83D\uDE04"));
+        goalkeepers1.add(new Goalkeeper("Miguel ", " Capuccini ", 27, 05, " Second Goalkeeper ", 170, 70, 64, new PlayerStatistics(0, 0, 34, 6, 48, 2, 1), new TrainingStatistics(156, 345, 19, 71),"\uD83D\uDE03"));
+        ArrayList<Player> defences1 = new ArrayList<>();
+        defences1.add(new Defence("Domingo ", " Tejera ", 30, 07, " Left Defence", 170, 70, 32, new PlayerStatistics(0, 0, 5, 7, 4, 3, 0), new TrainingStatistics(143, 321, 17, 64),"\uD83D\uDE15"));
+        defences1.add(new Defence("Emilio ", " Recoba ", 28, 11, " Right Defence", 170, 70, 25, new PlayerStatistics(0, 2, 15, 20, 14, 3, 0), new TrainingStatistics(156, 300, 18, 60),"\uD83D\uDE04"));
+        defences1.add(new Defence("José ", " Nasazzi ", 27, 17, " Left Defence", 170, 70, 43, new PlayerStatistics(1, 5, 34, 13, 5, 6, 2), new TrainingStatistics(165, 321, 16, 52),"\uD83D\uDE10"));
+        defences1.add(new Defence("Angel ", " Romano ", 26, 17, " Central Defence", 170, 70, 32, new PlayerStatistics(0, 2, 64, 12, 7, 4, 0), new TrainingStatistics(134, 400, 10, 60),"\uD83D\uDE03"));
+        ArrayList<Player> midfielders1 = new ArrayList<>();
+        midfielders1.add(new Midfielder("José Leandro ", " Andrade ", 25, 01, " Central Midfielder", 170, 70, 45, new PlayerStatistics(1, 4, 20, 0, 7, 5, 3), new TrainingStatistics(203, 401, 16, 42),"\uD83D\uDE03"));
+        midfielders1.add(new Midfielder("Lorenzo ", " Fernández ", 25, 02, " Left Midfielder", 170, 70, 38, new PlayerStatistics(3, 9, 32, 6, 6, 1, 0), new TrainingStatistics(243, 354, 18, 53),"\uD83D\uDE04"));
+        midfielders1.add(new Midfielder("Álvaro ", " Gestido ", 23, 06, " Rigth Midfielder", 170, 70, 28, new PlayerStatistics(0, 5, 26, 7, 14, 10, 5), new TrainingStatistics(308, 116, 17, 92),"\uD83D\uDE15"));
+        midfielders1.add(new Midfielder("Miguel Ángel ", " Melogno ", 26, 8, " Central Midfielder", 170, 70, 65, new PlayerStatistics(1, 9, 26, 0, 6, 5, 2), new TrainingStatistics(204, 326, 15, 32),"\uD83D\uDE10"));
+        midfielders1.add(new Midfielder("Carlos ", " Riolfo ", 30, 12, " Rigth Midfielder", 170, 70, 54, new PlayerStatistics(0, 5, 32, 0, 9, 1, 0), new TrainingStatistics(411, 243, 16, 42),"\uD83D\uDE04"));
+        midfielders1.add(new Midfielder("Conduelo ", " Píriz ", 22, 21, " Central Midfielder", 170, 70, 38, new PlayerStatistics(0, 9, 43, 12, 3, 0, 0), new TrainingStatistics(500, 300, 14, 70),"\uD83D\uDE15"));
+        ArrayList<Player> strikers1 = new ArrayList<>();
+        strikers1.add(new Striker("Pedro ", " Petrone ", 23, 04, " Central Striker ", 170, 70, 46, new PlayerStatistics(30, 25, 65, 5, 0, 0, 0), new TrainingStatistics(342, 578, 20, 45),"\uD83D\uDE15"));
+        strikers1.add(new Striker("Héctor ", " Castro ", 24, 9, " Left Striker ", 170, 70, 67, new PlayerStatistics(23, 42, 34, 2, 1, 0, 0), new TrainingStatistics(421, 602, 19, 76),"\uD83D\uDE10"));
+        strikers1.add(new Striker("Zoilo ", " Saldombide ", 23, 10, " Right Striker ", 170, 70, 560, new PlayerStatistics(301, 200, 45, 0, 5, 3, 1), new TrainingStatistics(500, 720, 23, 98),"\uD83D\uDE04"));
+        strikers1.add(new Striker("Pablo ", " Dorado ", 29, 14, " Central Striker ", 170, 70, 65, new PlayerStatistics(67, 49, 54, 8, 5, 2, 1), new TrainingStatistics(321, 444, 16, 76),"\uD83D\uDE10"));
+        strikers1.add(new Striker("José Pedro ", " Cea ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
+        strikers1.add(new Striker("Héctor ", " Scarone ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
+        strikers1.add(new Striker("Santos ", " Urdinarán ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
+        strikers1.add(new Striker("Victoriano Santos ", " Iriarte ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
+        strikers1.add(new Striker("Juan Peregrino  ", " Anselmo ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
+        strikers1.add(new Striker("Juan Carlos ", " Calvo ", 25, 16, " Right Striker ", 170, 70, 67, new PlayerStatistics(78, 54, 75, 7, 6, 3, 1), new TrainingStatistics(643, 321, 17, 44),"\uD83D\uDE15"));
 
+        medicalTeam1.addMedicals(new Medical("Juan", "Carlos", 25, "Psychical Therapist"));
+        medicalTeam1.addMedicals(new Medical("Cacho", "Los Trapos", 42, "Psychological Therapist"));
+        medicalTeam1.addMedicals(new Medical("Martita", "Larritia", 37, "Nurse"));
+        medicalTeam1.addMedicals(new Medical("Juan Pedro", "Unhuevo", 26, "Doctor"));
 
+        playersTeam1.addAll(goalkeepers1);
+        playersTeam1.addAll(defences1);
+        playersTeam1.addAll(midfielders1);
+        playersTeam1.addAll(strikers1);
+
+        team.setTeamName("Chavos Football ");
+        team.setTeamStatistics(new TeamStatistics(1200, 1342, 1042, 300, 0));
+        team.setMedicals(medicalTeam1);
+        team.setPlayers(playersTeam1);
+        team.setCoach(coach1);
+        return pt1;
     }
 
     public static void showStadiumMenu() {
@@ -435,6 +527,7 @@ public class Uimenu {
                     Date date = Date.from(ZonedDateTime.now().minusMonths(1).toInstant());
                     s.setDateFoLastMaintenace(date);
                     s.controlOfMaintenace();
+                    s.startMaintenanceTask();
                     back();
                     break;
                 case 5:
@@ -458,7 +551,8 @@ public class Uimenu {
         Sponsor adBreack = Sponsor.getAdBreack(sp1, sp2, sp3);
         System.out.println(adBreack.getSlogan() + adBreack.getHallmarkAgherent());
 
-        Team team2 = createTeam();
+        Team team1 = createTeam();
+        Team team2 = createTeam1();
         int teams1 = team1.throwdice(d);
         int teams2 = team2.throwdice(d);
 
@@ -480,11 +574,15 @@ public class Uimenu {
         int team2Goals = 0;
 
         long startTime = System.currentTimeMillis();
-        long duration = 90 * 1000;
+        long duration = GameDuration.DURATION_90.getValue() * 1000;
         long actionInterval = 5 * 1000;
         long nextActionTime = startTime + actionInterval;
 
         while (System.currentTimeMillis() - startTime < duration){
+
+            Team temp = startingTeam;
+            startingTeam = secondTeam;
+            secondTeam = temp;
 
         if (System.currentTimeMillis() >= nextActionTime){
             Player currentPlayer = startingTeam.getPlayers().get(0);
@@ -531,9 +629,7 @@ public class Uimenu {
                     break;
             }
 
-            Team temp = startingTeam;
-            startingTeam = secondTeam;
-            secondTeam = temp;
+
         }
         try{
             Thread.sleep(actionInterval);
