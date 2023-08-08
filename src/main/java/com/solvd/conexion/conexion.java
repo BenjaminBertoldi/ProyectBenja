@@ -1,10 +1,8 @@
 package com.solvd.conexion;
 
-import com.solvd.usages.people.User;
-
 import java.sql.*;
 
-public  class conexion {
+public  class conexion  implements AutoCloseable{
 
     private static final String DB_URL = "jdbc:mysql://localhost:2023/footballRepo_db";
     private static final String DB_USER = "root";
@@ -19,23 +17,18 @@ public  class conexion {
             e.printStackTrace();
         }
     }
+    public Connection getConnection(){
+        return connection;
+    }
 
-    public static void main(String[] args) {
-        conexion con = new conexion();
-           Statement st;
-           ResultSet rs;
-           try{
-               st = con.connection.createStatement();
-               rs = st.executeQuery("SELECT * FROM users");
-               while (rs.next()){
-                   User user = new User(rs.getString("email"),"",0,0);
-                   System.out.println(rs.getInt("id") + " " + rs.getString("firstName") +" "+ rs.getString("lastName") +" "+ rs.getInt("age") +" "+ rs.getString("email"));
-               }
-               con.connection.close();
-            } catch (Exception e){
-
+    @Override
+    public void close() {
+        try{
+            if (connection != null){
+                connection.close();
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-
+    }
 }

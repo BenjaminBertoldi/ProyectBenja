@@ -1,4 +1,5 @@
 package com.solvd.usages.UIMenu;
+import com.solvd.DAO.PresidentDAO.PresidentConexion;
 import com.solvd.conexion.conexion;
 import com.solvd.usages.club.team.*;
 import com.solvd.usages.game.Die;
@@ -33,7 +34,7 @@ public class Uimenu {
     static MedicalTeam medicalTeam = new MedicalTeam();
     static MedicalTeam medicalTeam1 = new MedicalTeam();
     static President prdt1 = new President("Alfredo Fransisco", " Cantillo", 52, "Consist of first divition of Rugby in the Club");
-
+    static PresidentConexion con = new PresidentConexion();
 
 
     public static void showMenu() {
@@ -158,7 +159,8 @@ public class Uimenu {
 
                         switch (responsese) {
                             case 1:
-                                System.out.println(prdt1);
+                                System.out.println(con.seachPresidentsForId(1));
+                                con.close();
                                 back();
                                 break;
                             case 2:
@@ -837,6 +839,25 @@ public class Uimenu {
             if (playerClass.isInstance(p)){
                 System.out.println(p.getFirstName() + p.getLastName() + p.getTrainingStatistics());
             }
+        }
+    }
+    public void seachPresident(int id) {
+        try {
+            Statement st = con.getConnection().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM president WHERE id = " + id);
+
+            if (rs.next()) {
+                President president = new President(rs.getString("firstName"), rs.getString("lastName"), rs.getInt("age"), rs.getString("takesResolutions"));
+
+                System.out.println("Details of Presidente:");
+                System.out.println("Name: " + president.getFirstName() + " " + president.getLastName());
+                System.out.println("Age: " + president.getAge());
+                System.out.println("Taked Resolutions: " + president.getTakesResolutions());
+            } else {
+                System.out.println("Presidents don't exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
