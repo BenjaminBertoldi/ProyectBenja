@@ -2,32 +2,33 @@ package com.solvd.usages.club.team;
 
 import com.solvd.usages.people.People;
 
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class President extends People {
-    private String takesResolutons;
+    private String takesResolutions;
 
-    public President(String firstName, String lastName, int age, String takesResolutons) {
+    public President(String firstName, String lastName, int age, String takesResolutions) {
         super(firstName, lastName, age);
-        this.takesResolutons = takesResolutons;
+        this.takesResolutions = takesResolutions;
     }
 
     public President() {
     }
 
 
-    public String getTakesResolutons() {
-        return takesResolutons;
+    public String getTakesResolutions() {
+        return takesResolutions;
     }
 
-    public void setTakesResolutons(String takesResolutons) {
-        this.takesResolutons = takesResolutons;
+    public void setTakesResolutions(String takesResolutions) {
+        this.takesResolutions = takesResolutions;
     }
 
     @Override
     public String toString() {
         return "President" + super.toString() + "\n" +
-                "Takes Resolutons: " + takesResolutons ;
+                "Takes Resolutons: " + takesResolutions ;
     }
     public void politicsEntryOutlay(){
         Scanner scan = new Scanner(System.in);
@@ -48,5 +49,6 @@ public class President extends People {
         System.out.println("Utility: $ " + utility);
         System.out.println("Margin of Utility: " + marginOfUtility + "%");
     }
+
     
 }
